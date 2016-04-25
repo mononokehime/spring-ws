@@ -1,7 +1,0 @@
-com/blogspot/krams915/ws/schema/oss/package-info.class
-org/krams/tutorial/service/SubscriptionService.class
-com/blogspot/krams915/ws/schema/oss/SubscriptionRequest.class
-com/blogspot/krams915/ws/schema/oss/SubscriptionResponse.class
-org/krams/tutorial/controller/MainController.class
-org/krams/tutorial/endpoint/SubscriptionEndpoint.class
-com/blogspot/krams915/ws/schema/oss/ObjectFactory.class

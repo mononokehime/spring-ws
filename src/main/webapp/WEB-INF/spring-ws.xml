@@ -37,7 +37,7 @@
 	    -->
 	 <sws:interceptors>
 	 	    <bean id="validatingInterceptor"  class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
-				<property name="schema" value="/WEB-INF/subscription.xsd"/>
+				<property name="schema" value="classpath:subscription.xsd"/>
 				<property name="validateRequest" value="true"/>
 				<property name="validateResponse" value="true"/>
 			</bean>
@@ -57,38 +57,10 @@
 	    portTypeName="SubscriptionPort"
 	    locationUri="/"
 	    targetNamespace="http://krams915.blogspot.com/ws/schema/oss">
-	  <sws:xsd location="/WEB-INF/subscription.xsd"/>
+	  <sws:xsd location="classpath:subscription.xsd"/>
 	</sws:dynamic-wsdl>
 
 
 	<oxm:jaxb2-marshaller id="marshaller" context-path="com.blogspot.krams915.ws.schema.oss"/>
-	<!--&lt;!&ndash;  Our mashaller. You can use any marshaller you want.-->
-	 <!--For info on how to use Castor, see http://www.castor.org/xml-mapping.html#2.1-Marshalling-Behavior &ndash;&gt;-->
-	<!--<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"-->
-    	<!--p:mappingLocation="/WEB-INF/castor-mapping.xml" />-->
 
- 	<!--&lt;!&ndash; Normally we use the GenericMarshallingMethodEndpointAdapter however if you read the Spring WS 2.0 API for this adapter:-->
- 	 <!--"Deprecated. as of Spring Web Services 2.0, in favor of DefaultMethodEndpointAdapter and MarshallingPayloadMethodProcessor."-->
- 	 <!--See http://static.springsource.org/spring-ws/sites/2.0/apidocs/org/springframework/ws/server/endpoint/adapter/GenericMarshallingMethodEndpointAdapter.html-->
-
- 	 <!--So we have to implement using the recommended implementation. The advantage of these two classes is that-->
- 	 <!--we have a pluggable adapter. For more info, check the Spring WS 2.0 API and its source code.-->
- 	 <!--&ndash;&gt;-->
-	<!--<bean id="marshallingPayloadMethodProcessor" class="org.springframework.ws.server.endpoint.adapter.method.MarshallingPayloadMethodProcessor">-->
-		<!--<constructor-arg ref="castorMarshaller"/>-->
-		<!--<constructor-arg ref="castorMarshaller"/>-->
-	<!--</bean>-->
-
-	<!--<bean id="defaultMethodEndpointAdapter" class="org.springframework.ws.server.endpoint.adapter.DefaultMethodEndpointAdapter">-->
-		<!--<property name="methodArgumentResolvers">-->
-			<!--<list>-->
-				<!--<ref bean="marshallingPayloadMethodProcessor"/>-->
-			<!--</list>-->
-		<!--</property>-->
-		<!--<property name="methodReturnValueHandlers">-->
-			<!--<list>-->
-				<!--<ref bean="marshallingPayloadMethodProcessor"/>-->
-			<!--</list>-->
-		<!--</property>-->
-	<!--</bean>-->
 </beans>

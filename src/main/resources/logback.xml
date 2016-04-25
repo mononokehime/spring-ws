@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration scan="true" scanPeriod="60 seconds">
+
+	<property resource="logging.properties"/>
+	<property name="ENABLE_CONSOLE" value="${ENABLE_CONSOLE:-false}"/>
+
+	<!-- Setup standard appenders -->
+	<if condition='property("ENABLE_CONSOLE").equalsIgnoreCase("true")'>
+		<then>
+			<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+				<encoder>
+					<Pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{0}:%method@%line ${MDC} - %msg%n%exception</Pattern>
+				</encoder>
+			</appender>
+
+			<root>
+				<appender-ref ref="CONSOLE" />
+			</root>
+		</then>
+	</if>
+
+    <!-- ================================= -->
+    <!-- Preserve messages in a local file -->
+    <!-- ================================= -->
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/beneficiary-mock.log</File>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_DIR}/beneficiary-mock.log.%d-%i.gz</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${MAX_FILE_SIZE:-10MB}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder>
+            <Pattern>%date [%thread] %-5level %logger{36} ${MDC} - %msg%n%exception{3}</Pattern>
+        </encoder>
+    </appender>
+
+
+
+    <!-- =========================== -->
+    <!-- Log categories  -->
+    <!-- =========================== -->
+    <logger name="org.springframework." level="DEBUG" />          <!-- This logs all requests coming into the Spring DispatcherServlet. Logging at DEBUG will show all requests but be a little verbose. Change to ERROR level in production -->
+
+    <!-- ======================= -->
+    <!-- Setup the Root category -->
+    <!-- ======================= -->
+
+    <root level="${ROOT_LEVEL:-WARN}">
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
